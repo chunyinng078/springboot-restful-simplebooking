@@ -1,16 +1,13 @@
 package com.booking.booking;
 
-import java.time.LocalDate;
+import java.time.*;
 // add timestamp
-import java.time.LocalTime;
+
+import org.springframework.boot.convert.PeriodFormat;
 
 import jakarta.annotation.Generated;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 @Entity
 @Table
@@ -28,11 +25,14 @@ public class Booking {
     private LocalTime time;
     private String comment;
     private String status;
+    @Transient
+    private Integer age;
+    private LocalDate dob;
 
     public Booking() {
     }
 
-    public Booking(Long id, String name, String phone, LocalDate date, LocalTime time, String comment, String status) {
+    public Booking(Long id, String name, String phone, LocalDate date, LocalTime time, String comment, String status, LocalDate dob) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -40,15 +40,17 @@ public class Booking {
         this.time = time;
         this.comment = comment;
         this.status = status;
+        this.dob = dob;
     }
 
-    public Booking(String name, String phone, LocalDate date, LocalTime time, String comment, String status) {
+    public Booking(String name, String phone, LocalDate date, LocalTime time, String comment, String status,  LocalDate dob) {
         this.name = name;
         this.phone = phone;
         this.date = date;
         this.time = time;
         this.comment = comment;
         this.status = status;
+        this.dob = dob;
     }
 
     /**
@@ -147,6 +149,35 @@ public class Booking {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    /**
+     * @return Integer return the age
+     */
+    public Integer getAge() {
+        return Period.between(this.dob, LocalDate.now()).getYears();
+    }
+
+    /**
+     * @param age the age to set
+     */
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    /**
+     * @return LocalDate return the dob
+     */
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    /**
+     * @param dob the dob to set
+     */
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 
 }

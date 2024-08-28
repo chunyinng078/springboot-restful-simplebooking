@@ -17,7 +17,7 @@ public class BookingController {
     // Dependency Injection
     @Autowired
     public BookingController(BookingService bookingService) {
-        this.bookingService = new BookingService();
+        this.bookingService = bookingService;
     }
 
     @GetMapping
