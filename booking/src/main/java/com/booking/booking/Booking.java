@@ -4,7 +4,23 @@ import java.time.LocalDate;
 // add timestamp
 import java.time.LocalTime;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Entity
+@Table
+
 public class Booking {
+    @Id
+
+    @SequenceGenerator(name = "booking_sequence", sequenceName = "booking_sequence", allocationSize = 1)
+
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
     private Long id;
     private String name;
     private String phone;
@@ -12,7 +28,6 @@ public class Booking {
     private LocalTime time;
     private String comment;
     private String status;
-    
 
     public Booking() {
     }
@@ -35,9 +50,6 @@ public class Booking {
         this.comment = comment;
         this.status = status;
     }
-
-    
-
 
     /**
      * @return Long return the id
